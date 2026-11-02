@@ -66,9 +66,10 @@ The network is segmented into dedicated VLANs according to infrastructure roles.
 | BASTION-01 | 70 | 10.10.70.10 | Controlled Administration |
 | 10Zig Zero Client | 80 | — | Endpoint |
 | WEB-01 | 90 | 10.10.90.10 | Nginx Web Server / DMZ |
-| MALWARE-01 | 100 | TBD | Malware Analysis / Isolated Testing Environment |
-| PROXY-01 | 110 | TBD | Squid Proxy Server / Web Traffic Filtering |
+| MALWARE-01 | 100 | 10.10.100.10| Malware Analysis / Isolated Testing Environment |
+| PROXY-01 | 110 | 10.10.110.10 | Squid Proxy Server / Web Traffic Filtering |
 | KALI-01 | Dynamic | Depends on test VLAN | Penetration Testing / Security Testing |
+| GOAD | 120 | 10.10.120.10 | Game Of Active Directory / Pentesting |
 
 ## 6. Virtual Networking
 
