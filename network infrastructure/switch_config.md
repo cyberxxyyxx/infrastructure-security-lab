@@ -39,15 +39,14 @@ Configured VLANs:
 
 ### VLAN Configuration
 
-![VLAN Configuration](images/vlan-configuration.png)
-
-### Port Configuration
-
-![Port Configuration](images/port-configuration.png)
+![network_infrastructure](./switch.PNG)
 
 ### 802.1Q PVID Configuration
 
-![PVID Configuration](images/pvid-configuration.png)
+PVID (Port VLAN ID) defines the VLAN assigned to an incoming frame that does not contain an 802.1Q tag.
+
+In the documented configuration:
+- Ports 1–5 use PVID 10.
 
 ## 5. Configuration Objectives
 
