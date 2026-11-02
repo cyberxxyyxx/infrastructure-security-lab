@@ -97,6 +97,10 @@ Practical administration activities include:
 - Storage Management
 - Infrastructure Troubleshooting
 
+## 8. Proof of Evidence
+  
+![Proxmox Virtualization](./proxmox.PNG)
+
 ---
 
 *This documentation is continuously updated as the virtualization environment evolves.*
