@@ -4,6 +4,8 @@ This section provides an overview of the physical hardware powering my IT Infras
 
 **Hardware Components:**
 
+![home-lab](home-lab.png)
+
 **OPNsense Firewall**: OptiPlex SFF
 
 - CPU: Intel Gold G5420
