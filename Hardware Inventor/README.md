@@ -1,4 +1,4 @@
-# Hardware Inventory
+# hardware Inventory
 
 This section provides an overview of the physical hardware powering my IT Infrastructure and Cybersecurity Homelab.
 
