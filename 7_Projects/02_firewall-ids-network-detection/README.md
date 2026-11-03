@@ -62,7 +62,7 @@ The lab focuses on detecting:
 
 ## 6. Proof of Evidence
 
-Screenshots documenting OPNsense IDS configuration, Emerging Threats rules, Nmap scanning activity and Suricata detection alerts are available in the `images/` directory.
+Detailed configuration steps, implementation screenshots, testing results and technical evidence are available in: TECHNICAL_DOCUMENTATION.md
 
 ## 7. Skills Demonstrated
 
