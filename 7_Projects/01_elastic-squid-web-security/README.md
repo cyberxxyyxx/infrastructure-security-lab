@@ -61,7 +61,7 @@ The lab monitors:
 
 ## 6. Proof of Evidence
 
-Screenshots documenting proxy configuration, domain filtering, blocklist updates and Elastic monitoring are available in the `evidence/` directory.
+Detailed configuration steps, implementation screenshots, testing results and technical evidence are available in: TECHNICAL_DOCUMENTATION.md
 
 ## 7. Skills Demonstrated
 
