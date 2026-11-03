@@ -66,19 +66,19 @@ sudo nano /etc/squid/blocked_domains.txt
 ```bash
 sudo systemctl reload squid
 ```
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/05-apply-ruless.png)
+![Apply Squid ACL Rules](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/05-apply-ruless.png)
 
 ## 3. Testing & Validation
 
 - Before Applying ACL Rules - Test access to allowed websites. Access allowed websites through the proxy.
   
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/06-before-applying-ACL-rules.png)
+![Before Applying ACL Rules](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/06-before-applying-ACL-rules.png)
   
 - After Applying ACL Rules - Attempt to access restricted domains. Access allowed websites through the proxy.
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/07-after-applying-ACL-rules.png)
+![After Applying ACL Rules](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/07-after-applying-ACL-rules.png)
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/08-after-applying-ACL-rules-2.png)
+![After Applying ACL Rules - Test 2](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/08-after-applying-ACL-rules-2.png)
 
 
 ### Step 4 – Elastic Security Monitoring
@@ -89,11 +89,11 @@ sudo systemctl reload squid
 ```bash
   event.dataset : "squid.log" and squid.status_code : 403
 ```
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/09-elastic-security-events.png)
+![Elastic Security Events](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/09-elastic-security-events.png)
 
 - Analyze blocked and allowed requests.
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/10-Elastic-security-events.png)
+![Elastic Security Events - Test 2](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/10-Elastic-security-events.png)
 
 
 *This documentation describes a practical cybersecurity lab implemented in a controlled homelab environment.*
