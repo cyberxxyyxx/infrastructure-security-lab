@@ -2,6 +2,10 @@
 
 ## Squid Proxy & Elastic Security Integration
 
+## Project Video
+
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=fr7El30sC50&t=131s)
+
 ## 1. Lab Environment
 
 The lab consists of three main systems operating in separate VLANs.
