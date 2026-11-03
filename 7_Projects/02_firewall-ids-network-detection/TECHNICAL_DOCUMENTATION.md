@@ -39,56 +39,59 @@ OPNsense provides network segmentation and traffic inspection. Suricata IDS moni
 - Access the OPNsense web interface: **Services > Intrusion Detection > Administration > Settings**
 
 ![OPNsense Firewall & Suricata IDS Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/02_firewall-ids-network-detection/images/01-opnsense-ids-dashboard.png)
-  
+
+- Enable Suricata IDS.
 - Review firewall configuration and network interfaces: **Capture mode - PCAP live mode (IDS), Interfaces - selected VLAN's**
 ![OPNsense Firewall & Suricata IDS Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/02_firewall-ids-network-detection/images/02-opnsense-ids-interfaces.PNG)
-  
+  - Enable Syslog allerts.
 
-### Step 2 – Suricata IDS Configuration
-
-- Navigate to the Suricata plugin in OPNsense.
-- Enable Suricata IDS.
-- Configure the interface used for traffic inspection.
-- Enable logging and alert generation.
-
-### Step 3 – Emerging Threats Rules
+### Step 2 – Emerging Threats Rules
 
 - Enable the Emerging Threats (ET) ruleset.
 - Download and update the available rules.
 - Enable relevant rules for network scanning and reconnaissance detection.
 - Apply the updated ruleset.
 
-### Step 4 – Nmap Scan Simulation
+  ![OPNsense Firewall & Suricata IDS Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/02_firewall-ids-network-detection/images/03-emerging-threats-rules.png)
 
-- Use Kali Linux to generate network scanning traffic.
-- Perform an Nmap scan from the simulated compromised client (`10.10.30.100`).
+### Step 3 – Nmap Scan Simulation
+
+- Windows Server (DC-01: 10.10.20.10) > 
+- Kali Linux (KALI-01: 10.10.30.100)
+- Perform an Nmap scan from the simulated compromised client (`10.10.30.10/VLAN 30`).
 - Target the Active Directory Domain Controller (DC01).
 - Generate reconnaissance traffic to test IDS detection capabilities.
 
-### Step 5 – Suricata IDS Monitoring
+```bash
+sudo nmap -sV 10.10.20.10
+```
+-sV: enables service version detection, identifying the services and their versions running on open ports
+
+ ![OPNsense Firewall & Suricata IDS Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/02_firewall-ids-network-detection/images/04-kali-nmap-scan.png)
+
+### Step 4 – Suricata IDS Monitoring
 
 - Access the Suricata alerts in OPNsense.
 - Review events generated during the Nmap scan.
 - Identify alerts related to network scanning and suspicious connection attempts.
 - Analyze source and destination information, timestamps, and triggered rules.
 
-## 4. Testing & Validation
+ ![OPNsense Firewall & Suricata IDS Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/02_firewall-ids-network-detection/images/05-suricata-alerts.png)
 
-- Generate Nmap scanning traffic from the simulated compromised client.
-- Verify that Suricata detects suspicious network activity.
-- Review the generated IDS alerts.
-- Identify the triggered Emerging Threats rules.
-- Confirm that the alerts correspond to the simulated scanning activity.
+## 4. IDS Detection & Alert Analysis
 
-## 5. Security Event Analysis
+A network scan was performed from Kali Linux (`10.10.30.100`) against the Active Directory Domain Controller (`10.10.20.10`) using Nmap with service version detection (`-sV`).
 
-Analyze the detected events to understand:
+Suricata successfully detected suspicious scanning activity using Emerging Threats (ET) rules.
 
-- Source and destination IP addresses.
-- Targeted services and ports.
-- Network reconnaissance patterns.
-- Triggered Suricata signatures.
-- Emerging Threats rule classifications.
-- Event timestamps and alert severity.
+The generated alerts included:
+
+- `ET SCAN Possible Nmap User-Agent Observed`
+- `ET SCAN RDP Connection Attempt from Nmap`
+
+The alerts provided visibility into the source IP, destination IP, network interface, destination ports, and triggered rule identifiers (SIDs).
+
+The detected traffic was allowed, confirming that Suricata was operating in IDS detection mode rather than actively blocking the traffic.
+
 
 *This documentation describes a practical intrusion detection lab implemented in a controlled homelab environment. The project demonstrates network scanning simulation, firewall traffic inspection, and IDS alert analysis.*
