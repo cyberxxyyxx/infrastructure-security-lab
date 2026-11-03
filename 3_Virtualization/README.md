@@ -6,6 +6,8 @@ The virtualization environment is built on Proxmox Virtual Environment (Proxmox 
 
 The infrastructure consists of three Lenovo ThinkCentre systems, configured to support different server workloads, network services and cybersecurity lab environments.
 
+![Proxmox Virtualization](./proxmox.PNG)
+
 ## 2. Proxmox VE Environment
 
 Proxmox VE is used as the main virtualization platform for:
@@ -97,9 +99,6 @@ Practical administration activities include:
 - Storage Management
 - Infrastructure Troubleshooting
 
-## 8. Proof of Evidence
-  
-![Proxmox Virtualization](./proxmox.PNG)
 
 ---
 
