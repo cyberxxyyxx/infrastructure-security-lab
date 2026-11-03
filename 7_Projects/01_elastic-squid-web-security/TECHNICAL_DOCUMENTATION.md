@@ -16,7 +16,7 @@ The lab consists of three main systems operating in separate VLANs.
 
 The Windows client uses Squid Proxy to filter web traffic. Squid access logs are collected by Filebeat and forwarded to Elastic Security for monitoring and analysis.
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/00-diagram.png)
+![Network Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/00-diagram.png)
 
 ### Traffic Flow
 
@@ -33,7 +33,7 @@ The Windows client uses Squid Proxy to filter web traffic. Squid access logs are
 
 - Connect to the Ubuntu Proxy Server.
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/01-proxy-server-access.png)
+![Proxy Server Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/01-proxy-server-access.png)
 
 - Locate the Squid configuration file (`/etc/squid/squid.conf`).
 - Open the file using Nano.
@@ -42,7 +42,7 @@ sudo nano /etc/squid/squid.conf
 ```
 
 
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/02-squid-configuration.png)
+![Squid Configuration](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/02-squid-configuration.png)
 
 - Configure the listening port and Access Control Lists (ACL).
 - Add the following lines into the configuration squid file
@@ -50,7 +50,7 @@ sudo nano /etc/squid/squid.conf
 acl blocked_domains dstdomain "/etc/squid/blocked_domains.txt"
 http_access deny blocked_domains
 ```
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/03-acl_config.png)
+![Squid ACL Configuration](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/03-acl_config.png)
 
 
 ### Step 2 – Domain Blocklist
@@ -60,7 +60,7 @@ http_access deny blocked_domains
 ```bash
 sudo nano /etc/squid/blocked_domains.txt
 ```
-![Network Architecture](7_Projects/01_elastic-squid-web-security/images/04-domain-blocklist.png)
+![Domain Blocklist](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/04-domain-blocklist.png)
 
 - Apply domain filtering rules.
 ```bash
