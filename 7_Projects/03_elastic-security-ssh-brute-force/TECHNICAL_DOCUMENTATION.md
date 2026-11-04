@@ -22,6 +22,8 @@ The Ubuntu Linux Web Server provides SSH access and generates authentication log
 
 Filebeat or Elastic Agent collects Linux authentication logs and forwards them to Elastic Security for monitoring, detection, and investigation.
 
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/00-diagram.png)
+
 ### Traffic Flow
 
 1. Kali Linux generates repeated SSH authentication attempts against the Ubuntu Web Server.
@@ -36,21 +38,19 @@ Filebeat or Elastic Agent collects Linux authentication logs and forwards them t
 ## 3. Implementation Steps
 
 ### Step 1 – Ubuntu Linux Web Server Configuration
-
-- Access the Ubuntu Linux Web Server.
-- Install and configure OpenSSH.
-- Verify SSH service status.
-
-```bash
-sudo systemctl status ssh
-```
-
-- Verify SSH connectivity.
-- Review authentication logs.
+.
+- The following demonstration was performed from the management laptop, connection to VM's via PowerShell.
+- Access the Ubuntu Linux Web Server via PowerShell terminal.
+- Access Kali Linux via PowerShell terminal.
 
 ```bash
-sudo tail -f /var/log/auth.log
+ssh admin@10.10.30.100 # Example SSH connection to Kali
 ```
+```bash
+ssh admin@10.10.90.10 # Example SSH connection to the Web Server
+```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/01-linux-kali-server-access.png)
+
 
 ### Step 2 – Elastic Agent / Filebeat Integration
 
