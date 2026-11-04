@@ -6,8 +6,8 @@ Screenshots documenting the SSH attack simulation, Linux authentication logs, El
 |---|---|
 | `00-diagram.png` | SSH Brute-Force Lab Architecture |
 | `01-linux-server-access.png` | Access to Ubuntu Linux Web Server |
-| `02-ssh-configuration.png` | OpenSSH service configuration |
-| `03-ssh-authentication-logs.png` | Linux SSH authentication logs |
+| `02-ssh-preparation.png` | OpenSSH service check |
+| `03-log-real-time-monitoring.png` | Open the SSH authentication log for real-time monitoring |
 | `04-kali-ssh-attempts.png` | SSH brute-force simulation from Kali Linux |
 | `05-elastic-agent-status.png` | Elastic Agent status on Linux server |
 | `06-elastic-authentication-events.png` | Authentication events in Elastic Security |
