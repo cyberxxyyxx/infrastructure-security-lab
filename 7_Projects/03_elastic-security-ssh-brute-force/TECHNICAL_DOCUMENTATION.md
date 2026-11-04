@@ -75,37 +75,30 @@ sudo tail -f /var/log/auth.log
 
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts.png)
 
+- Three failed login attempts using the username admin and different passwords.
+
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts-2.PNG)
+
+- Six failed login attempts using the username admin and different passwords.
+
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts-3.PNG)
   
-- Monitor authentication logs on the target server.
-- Verify that failed login attempts are recorded.
-
-Example SSH connection:
-
-```bash
-ssh testuser@WEB_SERVER_IP
-```
-
-### Step 4 – Elastic Security Monitoring
+### Step 3 – Elastic Security Monitoring
 
 - Access Discover in Kibana.
 - Review incoming Linux authentication events.
 - Identify failed SSH login attempts.
+Example KQL filter:
+```kql
+host.name: "web-01" and message: "*Failed password*"
+```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/05-elastic-authentication-events.png)
+  
 - Analyze source IP addresses and attempted usernames.
 - Verify event timestamps and authentication results.
 
-Example KQL filter:
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/06-ssh-detection-rule.png)
 
-```kql
-event.category : "authentication" and event.outcome : "failure"
-```
-
-### Step 5 – SSH Brute-Force Detection
-
-- Configure or enable an SSH brute-force detection rule.
-- Monitor repeated failed authentication attempts.
-- Identify multiple attempts originating from the same source IP.
-- Investigate suspicious authentication patterns.
-- Review generated alerts in Elastic Security.
 
 ### Step 6 – Incident Response
 
