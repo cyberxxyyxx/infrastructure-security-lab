@@ -69,12 +69,13 @@ sudo tail -f /var/log/auth.log
 ```
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/03-log-real-time-monitoring.png)
 
-
-### Step 3 – SSH Brute-Force Simulation
-
 - Use Kali Linux to generate repeated SSH authentication failures.
 - Target the Ubuntu Linux Web Server.
 - Perform controlled authentication attempts using an invalid username or password.
+
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts.png)
+
+  
 - Monitor authentication logs on the target server.
 - Verify that failed login attempts are recorded.
 
