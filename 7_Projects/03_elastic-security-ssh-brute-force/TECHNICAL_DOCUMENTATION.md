@@ -1,0 +1,150 @@
+# Technical Documentation
+
+## Elastic Security SIEM – SSH Brute-Force Detection & Response
+
+## Project Video
+
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=FaD-Q2_n-pM&t=218s)
+
+## 1. Lab Environment
+
+The lab consists of three main systems operating in a segmented network environment.
+
+| **Hostname / Component** | **IP Address** | **Role** | **VLAN** |
+|---|---|---|---|
+| KALI-01 | 10.10.30.100 | SSH Attack Simulation | VLAN 30 |
+| WEB-01 | 10.10.90.10 | Ubuntu Linux Web Server / SSH Target | VLAN 90 |
+| SEC-01 | 10.10.50.10 | Elastic Security SIEM | VLAN 50 |
+
+## 2. Architecture
+
+The Ubuntu Linux Web Server provides SSH access and generates authentication logs. Kali Linux is used to simulate repeated failed SSH authentication attempts.
+
+Filebeat or Elastic Agent collects Linux authentication logs and forwards them to Elastic Security for monitoring, detection, and investigation.
+
+### Traffic Flow
+
+1. Kali Linux generates repeated SSH authentication attempts against the Ubuntu Web Server.
+2. The Linux server records failed authentication attempts.
+3. Filebeat / Elastic Agent collects authentication logs.
+4. Logs are forwarded to Elastic Security.
+5. Elasticsearch stores and processes incoming security events.
+6. Elastic Security analyzes authentication activity using detection rules.
+7. Security alerts are generated for suspicious SSH activity.
+8. The detected activity is investigated and appropriate response actions are applied.
+
+## 3. Implementation Steps
+
+### Step 1 – Ubuntu Linux Web Server Configuration
+
+- Access the Ubuntu Linux Web Server.
+- Install and configure OpenSSH.
+- Verify SSH service status.
+
+```bash
+sudo systemctl status ssh
+```
+
+- Verify SSH connectivity.
+- Review authentication logs.
+
+```bash
+sudo tail -f /var/log/auth.log
+```
+
+### Step 2 – Elastic Agent / Filebeat Integration
+
+- Install and configure Filebeat or Elastic Agent on the Linux Web Server.
+- Configure Linux authentication log collection.
+- Configure the connection to Elastic Security.
+- Verify that authentication events are being forwarded.
+- Check incoming events in Kibana.
+
+### Step 3 – SSH Brute-Force Simulation
+
+- Use Kali Linux to generate repeated SSH authentication failures.
+- Target the Ubuntu Linux Web Server.
+- Perform controlled authentication attempts using an invalid username or password.
+- Monitor authentication logs on the target server.
+- Verify that failed login attempts are recorded.
+
+Example SSH connection:
+
+```bash
+ssh testuser@WEB_SERVER_IP
+```
+
+### Step 4 – Elastic Security Monitoring
+
+- Access Discover in Kibana.
+- Review incoming Linux authentication events.
+- Identify failed SSH login attempts.
+- Analyze source IP addresses and attempted usernames.
+- Verify event timestamps and authentication results.
+
+Example KQL filter:
+
+```kql
+event.category : "authentication" and event.outcome : "failure"
+```
+
+### Step 5 – SSH Brute-Force Detection
+
+- Configure or enable an SSH brute-force detection rule.
+- Monitor repeated failed authentication attempts.
+- Identify multiple attempts originating from the same source IP.
+- Investigate suspicious authentication patterns.
+- Review generated alerts in Elastic Security.
+
+### Step 6 – Incident Response
+
+- Investigate the source IP address.
+- Review the affected Linux account.
+- Analyze authentication events.
+- Configure Fail2ban or firewall-based IP blocking.
+- Verify that suspicious SSH access attempts are mitigated.
+- Monitor subsequent authentication activity.
+
+Example Fail2ban service check:
+
+```bash
+sudo systemctl status fail2ban
+```
+
+## 4. SSH Brute-Force Detection & Alert Analysis
+
+Repeated failed SSH authentication attempts are generated from Kali Linux against the Ubuntu Linux Web Server.
+
+Elastic Security receives authentication events collected from the Linux server and analyzes them to identify suspicious login activity.
+
+The investigation focuses on:
+
+- Source IP address.
+- Target hostname.
+- Attempted usernames.
+- Number of failed authentication attempts.
+- Authentication timestamps.
+- Detection rule and alert details.
+
+The objective is to identify potential brute-force activity and investigate unauthorized SSH access attempts.
+
+## 5. Incident Response & Validation
+
+The response process includes:
+
+1. Identify suspicious SSH authentication activity.
+2. Investigate the source IP address.
+3. Review failed login events.
+4. Apply blocking measures using Fail2ban or firewall rules.
+5. Verify that the source IP is blocked.
+6. Confirm that subsequent SSH access attempts are mitigated.
+
+## 6. Proof of Evidence
+
+Screenshots documenting the Linux server configuration, SSH attack simulation, authentication logs, Elastic Security events, detection alerts, and incident response actions are included in the `images/` directory.
+
+Detailed configuration steps, implementation screenshots, testing results and technical evidence are documented in this file.
+
+---
+
+*This documentation describes a practical SSH brute-force detection and response lab implemented in a controlled homelab environment.*
