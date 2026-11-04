@@ -1,15 +1,14 @@
-Evidence – OPNsense Firewall & IDS Lab
+# Evidence – OPNsense Firewall & Suricata IDS Lab
 
-Screenshots documenting firewall configuration, Suricata IDS deployment, Nmap scanning and intrusion detection.
+Screenshots documenting firewall configuration, Suricata IDS deployment, Nmap scanning, and intrusion detection.
 
-Image	Description
-01-opnsense-ids-dashboard.png	OPNsense IDS dashboard
-02-suricata-configuration.png	Suricata IDS configuration
-03-emerging-threats-rules.png	Emerging Threats (ET) rules
-04-kali-nmap-scan.png	Nmap scan from Kali Linux
-05-network-scan-traffic.png	Network scanning traffic
-06-suricata-alerts.png	Suricata IDS detection alerts
-07-dc01-scan-detection.png	Scan activity targeting DC01
-08-ids-event-analysis.png	Security event analysis
+| **Image** | **Description** |
+|---|---|
+| `00-diagram.png` | Network Architecture Diagram |
+| `01-opnsense-ids-dashboard.png` | OPNsense Intrusion Detection Dashboard |
+| `02-opnsense-ids-interfaces.PNG` | Suricata IDS Interface Configuration |
+| `03-emerging-threats-rules.png` | Emerging Threats (ET) Rules Configuration |
+| `04-kali-nmap-scan.png` | Nmap Scan from Kali Linux |
+| `05-suricata-alerts.png` | Suricata IDS Detection Alerts |
 
-All screenshots are from my homelab and demonstrate practical firewall configuration, network scanning and intrusion detection.
+All screenshots are from my homelab and are provided for educational and portfolio purposes.
