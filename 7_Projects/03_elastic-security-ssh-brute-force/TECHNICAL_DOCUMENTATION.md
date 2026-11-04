@@ -37,7 +37,7 @@ Filebeat or Elastic Agent collects Linux authentication logs and forwards them t
 
 ## 3. Implementation Steps
 
-### Step 1 – Ubuntu Linux Web Server Configuration
+### Step 1 – Lab Environment Preparation
 .
 - The following demonstration was performed from the management laptop, connection to VM's via PowerShell.
 - Access the Ubuntu Linux Web Server via PowerShell terminal.
@@ -52,13 +52,23 @@ ssh admin@10.10.90.10 # Example SSH connection to the Web Server
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/01-linux-kali-server-access.png)
 
 
-### Step 2 – Elastic Agent / Filebeat Integration
+### Step 2 – SSH Authentication Logging & Attack Simulation
 
-- Install and configure Filebeat or Elastic Agent on the Linux Web Server.
-- Configure Linux authentication log collection.
-- Configure the connection to Elastic Security.
-- Verify that authentication events are being forwarded.
-- Check incoming events in Kibana.
+**On WEB-01 (Ubuntu Linux Web Server):**
+
+- Verify that the SSH service is running.
+```bash
+sudo systemctl status ssh
+```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/02-ssh-preparation.png)
+
+- Prepare the authentication log monitoring.
+- Open the SSH authentication log for real-time monitoring.
+```bash
+sudo tail -f /var/log/auth.log
+```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/03-log-real-time-monitoring.png)
+
 
 ### Step 3 – SSH Brute-Force Simulation
 
