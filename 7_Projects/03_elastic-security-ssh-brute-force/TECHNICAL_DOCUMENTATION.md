@@ -242,10 +242,10 @@ sudo fail2ban-client status sshd
 - The connection should be blocked while the Fail2ban ban is active.
 - This validates that Fail2ban has applied the configured host-level protection.
 
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/12-fail2ban-test-validation.PNG)
 
-## 6. Proof of Evidence
+## 5. Conclusion
 
-Screenshots documenting the Linux server configuration, SSH attack simulation, authentication logs, Elastic Security events, detection alerts, and incident response actions are included in the `images/` directory.
+This demonstration confirms that Fail2ban can effectively mitigate SSH brute-force attempts by automatically detecting repeated failed authentication attempts and temporarily blocking the source IP address. After exceeding the configured threshold, the Kali Linux IP address was added to the SSH jail's banned IP list, preventing further SSH access during the ban period.
 
-
-*This documentation describes a practical SSH brute-force detection and response lab implemented in a controlled homelab environment.*
+Combined with Elastic Security monitoring and alerting, this implementation demonstrates an effective approach to SSH brute-force detection, investigation, and host-level incident response in a controlled homelab environment.
