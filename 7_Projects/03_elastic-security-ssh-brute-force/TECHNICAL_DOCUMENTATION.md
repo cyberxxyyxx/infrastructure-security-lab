@@ -205,7 +205,7 @@ Check the service status:
 ```bash
 sudo systemctl status fail2ban
 ```
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/09-configure-fail2ban.PNG)
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/10-fail2ban-start.png.PNG)
 #### 4.4 – Verify the SSH Jail
 
 Check the overall Fail2ban status:
@@ -221,6 +221,7 @@ sudo fail2ban-client status sshd
 ```
 
 Verify that the SSH jail is enabled and monitoring authentication failures.
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/11-SSH-jail-conf.PNG)
 
 #### 4.5 – Simulate SSH Brute-Force Activity
 
@@ -229,70 +230,22 @@ From Kali Linux, manually perform repeated SSH login attempts against the Ubuntu
 ```bash
 ssh goduser@10.10.90.10
 ```
-
-Use different incorrect passwords to generate failed authentication events.
-
-No Hydra or other automated brute-force tools are used.
-
-On the Ubuntu Web Server, monitor authentication logs:
-
-
-
-#### 6.6 – Validate Automatic IP Blocking
-
-After exceeding the configured threshold of five failed attempts within five minutes, check the SSH jail status:
-
+- Use different incorrect passwords to generate failed authentication events.
+- No Hydra or other automated brute-force tools are used.
+**- Validate Automatic IP Blocking**
+- After exceeding the configured threshold of five failed attempts within five minutes, check the SSH jail status:
 ```bash
 sudo fail2ban-client status sshd
 ```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/11-SSH-jail-conf.PNG)
 
-Verify whether the Kali Linux source IP address (`10.10.30.100`) appears in the `Banned IP list`.
+- The connection should be blocked while the Fail2ban ban is active.
+- This validates that Fail2ban has applied the configured host-level protection.
 
-#### 6.7 – Test SSH Connectivity
-
-From Kali Linux, attempt another SSH connection:
-
-```bash
-ssh admin@10.10.90.10
-```
-
-The connection should be blocked while the Fail2ban ban is active.
-
-This validates that Fail2ban has applied the configured host-level protection.
-
-#### 6.8 – Remove the Temporary IP Ban
-
-After completing the test, remove the temporary ban:
-
-```bash
-sudo fail2ban-client set sshd unbanip 10.10.30.100
-```
-
-Check the SSH jail status again:
-
-```bash
-sudo fail2ban-client status sshd
-```
-
-#### 6.9 – Incident Response Validation
-
-The validation process confirms that:
-
-- Repeated failed SSH authentication attempts are recorded in Linux authentication logs.
-- Elastic Security identifies suspicious authentication activity and generates an alert.
-- Fail2ban independently monitors SSH authentication failures.
-- The source IP address is automatically blocked after exceeding the configured threshold.
-- Subsequent SSH connection attempts are blocked during the ban period.
-- The temporary ban can be removed after testing.
-
-The objective is to demonstrate an end-to-end SSH brute-force detection and response workflow using Elastic Security for centralized monitoring and Fail2ban for automated host-level protection.
 
 ## 6. Proof of Evidence
 
 Screenshots documenting the Linux server configuration, SSH attack simulation, authentication logs, Elastic Security events, detection alerts, and incident response actions are included in the `images/` directory.
 
-Detailed configuration steps, implementation screenshots, testing results and technical evidence are documented in this file.
-
----
 
 *This documentation describes a practical SSH brute-force detection and response lab implemented in a controlled homelab environment.*
