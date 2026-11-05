@@ -118,7 +118,7 @@ The response process includes:
    
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/07-ssh-brute-force-alerts.png)
 
-Incident Response & Fail2ban Configuration
+**Incident Response & Fail2ban Configuration**
 
 Fail2ban is deployed on the Ubuntu Linux Web Server to provide automated protection against repeated SSH authentication failures.
 The service monitors Linux authentication logs and automatically blocks source IP addresses that exceed the configured number of failed login attempts.
@@ -142,6 +142,7 @@ Verify the installed version:
 ```bash
 fail2ban-client --version
 ```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/08-fail2ban-verision.PNG)
 
 #### 4.2 – Configure Fail2ban
 
@@ -159,7 +160,7 @@ enabled = true
 port = ssh
 filter = sshd
 logpath = /var/log/auth.log
-maxretry = 5
+maxretry = 3
 findtime = 5m
 bantime = 10m
 ```
@@ -175,6 +176,9 @@ Configuration parameters:
 | `maxretry` | Maximum number of failed attempts |
 | `findtime` | Time window for counting failed attempts |
 | `bantime` | Duration of the IP ban |
+
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/09-configure-fail2ban.PNG)
+
 
 #### 4.3 – Enable and Start the Service
 
@@ -201,7 +205,7 @@ Check the service status:
 ```bash
 sudo systemctl status fail2ban
 ```
-
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/09-configure-fail2ban.PNG)
 #### 4.4 – Verify the SSH Jail
 
 Check the overall Fail2ban status:
@@ -218,12 +222,12 @@ sudo fail2ban-client status sshd
 
 Verify that the SSH jail is enabled and monitoring authentication failures.
 
-#### 6.5 – Simulate SSH Brute-Force Activity
+#### 4.5 – Simulate SSH Brute-Force Activity
 
 From Kali Linux, manually perform repeated SSH login attempts against the Ubuntu Web Server:
 
 ```bash
-ssh admin@10.10.90.10
+ssh goduser@10.10.90.10
 ```
 
 Use different incorrect passwords to generate failed authentication events.
@@ -232,9 +236,7 @@ No Hydra or other automated brute-force tools are used.
 
 On the Ubuntu Web Server, monitor authentication logs:
 
-```bash
-sudo tail -f /var/log/auth.log
-```
+
 
 #### 6.6 – Validate Automatic IP Blocking
 
