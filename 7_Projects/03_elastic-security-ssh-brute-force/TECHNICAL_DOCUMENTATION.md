@@ -95,7 +95,14 @@ Example KQL filter:
 host.name: "web-01" and message: "*Failed password*"
 ```
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/05-elastic-authentication-events.png)
-  
+
+### SSH Authentication Event Analysis
+
+The Discover interface was used to investigate failed SSH
+authentication attempts originating from Kali Linux.
+
+The analysis identified the source IP address, attempted
+username, target hostname, and authentication timestamps.
 
 ## 4. Incident Response & Validation
 
@@ -111,8 +118,172 @@ The response process includes:
    
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/07-ssh-brute-force-alerts.png)
 
-6. Verify that the source IP is blocked.
-7. Confirm that subsequent SSH access attempts are mitigated.
+Incident Response & Fail2ban Configuration
+
+Fail2ban is deployed on the Ubuntu Linux Web Server to provide automated protection against repeated SSH authentication failures.
+The service monitors Linux authentication logs and automatically blocks source IP addresses that exceed the configured number of failed login attempts.
+
+#### 4.1 – Install Fail2ban
+
+Update the Ubuntu package repository:
+
+```bash
+sudo apt update
+```
+
+Install Fail2ban:
+
+```bash
+sudo apt install fail2ban -y
+```
+
+Verify the installed version:
+
+```bash
+fail2ban-client --version
+```
+
+#### 4.2 – Configure Fail2ban
+
+Create a local configuration file:
+
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
+
+Add the following SSH jail configuration:
+
+```ini
+[sshd]
+enabled = true
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 5
+findtime = 5m
+bantime = 10m
+```
+
+Configuration parameters:
+
+| Parameter | Description |
+|---|---|
+| `enabled` | Enables SSH protection |
+| `port` | Monitors the SSH service |
+| `filter` | Uses the SSH authentication filter |
+| `logpath` | Specifies the authentication log file |
+| `maxretry` | Maximum number of failed attempts |
+| `findtime` | Time window for counting failed attempts |
+| `bantime` | Duration of the IP ban |
+
+#### 4.3 – Enable and Start the Service
+
+Enable Fail2ban at system startup:
+
+```bash
+sudo systemctl enable fail2ban
+```
+
+Start the service:
+
+```bash
+sudo systemctl start fail2ban
+```
+
+Restart the service to apply the configuration:
+
+```bash
+sudo systemctl restart fail2ban
+```
+
+Check the service status:
+
+```bash
+sudo systemctl status fail2ban
+```
+
+#### 4.4 – Verify the SSH Jail
+
+Check the overall Fail2ban status:
+
+```bash
+sudo fail2ban-client status
+```
+
+Check the SSH jail:
+
+```bash
+sudo fail2ban-client status sshd
+```
+
+Verify that the SSH jail is enabled and monitoring authentication failures.
+
+#### 6.5 – Simulate SSH Brute-Force Activity
+
+From Kali Linux, manually perform repeated SSH login attempts against the Ubuntu Web Server:
+
+```bash
+ssh admin@10.10.90.10
+```
+
+Use different incorrect passwords to generate failed authentication events.
+
+No Hydra or other automated brute-force tools are used.
+
+On the Ubuntu Web Server, monitor authentication logs:
+
+```bash
+sudo tail -f /var/log/auth.log
+```
+
+#### 6.6 – Validate Automatic IP Blocking
+
+After exceeding the configured threshold of five failed attempts within five minutes, check the SSH jail status:
+
+```bash
+sudo fail2ban-client status sshd
+```
+
+Verify whether the Kali Linux source IP address (`10.10.30.100`) appears in the `Banned IP list`.
+
+#### 6.7 – Test SSH Connectivity
+
+From Kali Linux, attempt another SSH connection:
+
+```bash
+ssh admin@10.10.90.10
+```
+
+The connection should be blocked while the Fail2ban ban is active.
+
+This validates that Fail2ban has applied the configured host-level protection.
+
+#### 6.8 – Remove the Temporary IP Ban
+
+After completing the test, remove the temporary ban:
+
+```bash
+sudo fail2ban-client set sshd unbanip 10.10.30.100
+```
+
+Check the SSH jail status again:
+
+```bash
+sudo fail2ban-client status sshd
+```
+
+#### 6.9 – Incident Response Validation
+
+The validation process confirms that:
+
+- Repeated failed SSH authentication attempts are recorded in Linux authentication logs.
+- Elastic Security identifies suspicious authentication activity and generates an alert.
+- Fail2ban independently monitors SSH authentication failures.
+- The source IP address is automatically blocked after exceeding the configured threshold.
+- Subsequent SSH connection attempts are blocked during the ban period.
+- The temporary ban can be removed after testing.
+
+The objective is to demonstrate an end-to-end SSH brute-force detection and response workflow using Elastic Security for centralized monitoring and Fail2ban for automated host-level protection.
 
 ## 6. Proof of Evidence
 
