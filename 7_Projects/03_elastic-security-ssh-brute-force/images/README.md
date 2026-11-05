@@ -16,5 +16,6 @@ Screenshots documenting the SSH attack simulation, Linux authentication logs, El
 | `09-configure-fail2ban.png` | Configure Fail2ban |
 | `10-fail2ban-start.png` | Fail2ban / Enable and Start the Service |
 | `11-SSH-jail-conf.png` | Verify the SSH Jail |
+| `12-fail2ban-test-validation.png` | Brut-force and Fail2ban validation |
 
 All screenshots are from my homelab and are provided for educational and portfolio purposes.
