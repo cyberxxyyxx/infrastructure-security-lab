@@ -79,7 +79,7 @@ sudo tail -f /var/log/auth.log
 
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts-2.PNG)
 
-- Six failed login attempts using the username admin and different passwords.
+- Six failed login attempts using the username admin/superadmin and different passwords.
 
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/04-kali-ssh-attempts-3.PNG)
   
@@ -88,60 +88,31 @@ sudo tail -f /var/log/auth.log
 - Access Discover in Kibana.
 - Review incoming Linux authentication events.
 - Identify failed SSH login attempts.
+- Analyze source IP addresses and attempted usernames.
+- Verify event timestamps and authentication results.
 Example KQL filter:
 ```kql
 host.name: "web-01" and message: "*Failed password*"
 ```
 ![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/05-elastic-authentication-events.png)
   
-- Analyze source IP addresses and attempted usernames.
-- Verify event timestamps and authentication results.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/06-ssh-detection-rule.png)
-
-
-### Step 6 – Incident Response
-
-- Investigate the source IP address.
-- Review the affected Linux account.
-- Analyze authentication events.
-- Configure Fail2ban or firewall-based IP blocking.
-- Verify that suspicious SSH access attempts are mitigated.
-- Monitor subsequent authentication activity.
-
-Example Fail2ban service check:
-
-```bash
-sudo systemctl status fail2ban
-```
-
-## 4. SSH Brute-Force Detection & Alert Analysis
-
-Repeated failed SSH authentication attempts are generated from Kali Linux against the Ubuntu Linux Web Server.
-
-Elastic Security receives authentication events collected from the Linux server and analyzes them to identify suspicious login activity.
-
-The investigation focuses on:
-
-- Source IP address.
-- Target hostname.
-- Attempted usernames.
-- Number of failed authentication attempts.
-- Authentication timestamps.
-- Detection rule and alert details.
-
-The objective is to identify potential brute-force activity and investigate unauthorized SSH access attempts.
-
-## 5. Incident Response & Validation
+## 4. Incident Response & Validation
 
 The response process includes:
 
 1. Identify suspicious SSH authentication activity.
 2. Investigate the source IP address.
 3. Review failed login events.
-4. Apply blocking measures using Fail2ban or firewall rules.
-5. Verify that the source IP is blocked.
-6. Confirm that subsequent SSH access attempts are mitigated.
+   
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/06-ssh-detection-rule.png)
+
+4. Create rule alert for brut force activities **Security > Rules > Detection Rules > Create a rule > KQL: host.name: "web-01" and message: "*Failed password*", treshhod >5 + rest of the details**
+   
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/03_elastic-security-ssh-brute-force/images/07-ssh-brute-force-alerts.png)
+
+6. Verify that the source IP is blocked.
+7. Confirm that subsequent SSH access attempts are mitigated.
 
 ## 6. Proof of Evidence
 
