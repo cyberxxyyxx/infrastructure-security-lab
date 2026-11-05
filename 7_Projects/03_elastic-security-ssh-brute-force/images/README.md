@@ -12,9 +12,9 @@ Screenshots documenting the SSH attack simulation, Linux authentication logs, El
 | `05-elastic-agent-status.png` | Elastic Agent status on Linux server |
 | `06-elastic-authentication-events.png` | Authentication events in Elastic Security |
 | `07-ssh-detection-rule.png` | SSH brute-force detection rule |
-| `08-ssh-brute-force-alerts.png` | SSH brute-force security alerts |
-| `09-incident-investigation.png` | Investigation of suspicious SSH activity |
-| `10-fail2ban-response.png` | Fail2ban configuration and response |
-| `11-blocked-ip-validation.png` | Validation of blocked IP address |
+| `08-fail2ban-verision.png` | Install Fail2ban / version |
+| `09-configure-fail2ban.png` | Configure Fail2ban |
+| `10-fail2ban-start.png` | Fail2ban / Enable and Start the Service |
+| `11-SSH-jail-conf.png` | Verify the SSH Jail |
 
 All screenshots are from my homelab and are provided for educational and portfolio purposes.
