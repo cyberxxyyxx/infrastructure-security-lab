@@ -6,7 +6,9 @@ SSH Brute-Force Detection & Response
 
 ## Project Video
 
-[Watch the project demonstration on YouTube.](https://www.youtube.com/watch?v=FaD-Q2_n-pM&t=218s)
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=FaD-Q2_n-pM&t=218s)
+
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=yNAqy7OPQF4&t=113s)
 
 ## 1. Project Overview
 
