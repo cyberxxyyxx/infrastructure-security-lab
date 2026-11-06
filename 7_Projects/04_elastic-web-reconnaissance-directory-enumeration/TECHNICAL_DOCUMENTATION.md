@@ -24,7 +24,7 @@ Kali Linux is used to perform network reconnaissance using Nmap and web director
 
 Nginx access logs are collected and forwarded to Elastic Security for centralized monitoring and investigation.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/00-diagram.png)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/00-diagram.png)
 
 ### Traffic Flow
 
@@ -56,7 +56,7 @@ ssh admin@10.10.30.100
 ```bash
 ssh admin@10.10.90.10
 ```
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/01-connection-proxmox-srv.png)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/01-connection-proxmox-srv.png)
 
 ### Step 2 – Network Reconnaissance & Service Discovery
 
@@ -79,7 +79,7 @@ Activate on web-01 Nginx Access Log – Real-Time Monitoring
 sudo tail -f /var/log/nginx/access.log
 ```
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/02-nmap-scanning.png)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/02-nmap-scanning.png)
 
 **Observed results:**
 
@@ -113,14 +113,14 @@ Gobuster generates HTTP requests using entries from the selected wordlist to ide
 
 The enumeration activity generates HTTP traffic that can be investigated through the Nginx access logs.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning.PNG)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning.PNG)
 
 Activate on web-01 Nginx Access Log – Real-Time Monitoring
 ```bash
 sudo tail -f /var/log/nginx/access.log
 ```
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning-2.PNG)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning-2.PNG)
 
 ### Step 4 – Elastic Security Log Monitoring
 
@@ -139,7 +139,7 @@ host.name : "web-01" and event.dataset : "nginx.access"
 
 The query filters events associated with the WEB-01 hostname and the Nginx access dataset.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/04-elastic-detection-rule.png)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/04-elastic-detection-rule.png)
 
 ### Step 6 – Custom Elastic Security Detection Rule
 
@@ -169,7 +169,7 @@ host.name : "web-01" and event.dataset : "nginx.access"
 
 The `source.ip` field is configured for alert suppression to reduce repeated alerts from the same source IP address.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/05-elastic-detection-alert.png)
+![Elastic Web Rec](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/05-elastic-detection-alert.png)
 
 ### Web Reconnaissance Event Analysis
 
