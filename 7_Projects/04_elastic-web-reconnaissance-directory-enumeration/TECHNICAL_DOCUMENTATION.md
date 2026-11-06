@@ -74,6 +74,13 @@ sudo nmap -sV 10.10.90.10
 
 The `-sV` option enables service version detection.
 
+Activate on web-01 Nginx Access Log – Real-Time Monitoring
+```bash
+sudo tail -f /var/log/nginx/access.log
+```
+
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/02-nmap-scanning)
+
 **Observed results:**
 
 | Port | State | Service | Version |
