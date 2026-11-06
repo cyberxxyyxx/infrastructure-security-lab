@@ -139,7 +139,7 @@ host.name : "web-01" and event.dataset : "nginx.access"
 
 The query filters events associated with the WEB-01 hostname and the Nginx access dataset.
 
-![Elastic Discover – Nginx Access Events](images/03-elastic-discover.png)
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/04-elastic-detection-rule.png)
 
 ### Step 6 – Custom Elastic Security Detection Rule
 
@@ -169,7 +169,7 @@ host.name : "web-01" and event.dataset : "nginx.access"
 
 The `source.ip` field is configured for alert suppression to reduce repeated alerts from the same source IP address.
 
-![Elastic Detection Rule Configuration](images/02-elastic-detection-rule.png)
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/05-elastic-detection-alert.png)
 
 ### Web Reconnaissance Event Analysis
 
