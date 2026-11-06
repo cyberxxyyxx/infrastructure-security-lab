@@ -79,7 +79,7 @@ Activate on web-01 Nginx Access Log – Real-Time Monitoring
 sudo tail -f /var/log/nginx/access.log
 ```
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/02-nmap-scanning)
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/02-nmap-scanning.png)
 
 **Observed results:**
 
@@ -91,7 +91,6 @@ sudo tail -f /var/log/nginx/access.log
 
 The scan identified SSH and HTTP services running on the target server.
 
-![Nmap Service Discovery](images/01-nmap-gobuster-nginx-logs.png)
 
 ### Step 3 – Web Directory Enumeration
 
@@ -114,35 +113,16 @@ Gobuster generates HTTP requests using entries from the selected wordlist to ide
 
 The enumeration activity generates HTTP traffic that can be investigated through the Nginx access logs.
 
-### Step 4 – Nginx Access Log Monitoring
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning.PNG)
 
-**On WEB-01 (Ubuntu Linux Web Server):**
-
-- Monitor incoming HTTP requests.
-- Review requests generated during Nmap scanning and Gobuster enumeration.
-- Identify the source IP address and requested web paths.
-- Analyze HTTP response status codes.
-
-Open the Nginx access log for real-time monitoring:
-
+Activate on web-01 Nginx Access Log – Real-Time Monitoring
 ```bash
 sudo tail -f /var/log/nginx/access.log
 ```
 
-During the reconnaissance activity, HTTP requests originating from Kali Linux (`10.10.30.100`) were visible in the Nginx access logs.
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/03-nmap-scanning-2.PNG)
 
-Observed activity included:
-
-- HTTP GET requests.
-- HTTP POST requests.
-- Requests to the web server root path.
-- Requests to additional web paths.
-- HTTP response codes such as `200` and `404`.
-- User-Agent information associated with Nmap scripting activity.
-
-![Nmap and Nginx Access Logs](images/01-nmap-gobuster-nginx-logs.png)
-
-### Step 5 – Elastic Security Log Monitoring
+### Step 4 – Elastic Security Log Monitoring
 
 - Access Kibana.
 - Navigate to Discover.
