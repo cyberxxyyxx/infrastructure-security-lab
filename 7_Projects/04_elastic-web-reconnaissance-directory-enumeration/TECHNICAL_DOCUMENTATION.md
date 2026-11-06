@@ -24,7 +24,7 @@ Kali Linux is used to perform network reconnaissance using Nmap and web director
 
 Nginx access logs are collected and forwarded to Elastic Security for centralized monitoring and investigation.
 
-![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/01-linux-kali-server-access.png)
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/00-diagram.png)
 
 ### Traffic Flow
 
@@ -37,13 +37,6 @@ Nginx access logs are collected and forwarded to Elastic Security for centralize
 7. A custom Elastic Security query rule monitors Nginx access events.
 8. The collected HTTP activity is investigated using Kibana Discover.
 
-### Network Architecture Diagram
-
-The following diagram illustrates the lab architecture, network segmentation, reconnaissance traffic flow, and centralized Nginx log monitoring.
-
-![Web Reconnaissance Architecture](images/00-diagram.png)
-
-## 3. Implementation Steps
 
 ### Step 1 – Lab Environment Preparation
 
@@ -63,6 +56,7 @@ ssh admin@10.10.30.100
 ```bash
 ssh admin@10.10.90.10
 ```
+![Elastic Security ssh brute force](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/04_elastic-web-reconnaissance-directory-enumeration/images/01-connection-proxmox-srv.png)
 
 ### Step 2 – Network Reconnaissance & Service Discovery
 
