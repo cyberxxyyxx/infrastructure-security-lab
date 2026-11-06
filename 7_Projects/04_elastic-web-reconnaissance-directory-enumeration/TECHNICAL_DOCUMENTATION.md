@@ -4,7 +4,7 @@
 
 ## Project Video
 
-[Watch the project demonstration on YouTube](VIDEO_URL)
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=thgz7f_rJy0)
 
 ## 1. Lab Environment
 
