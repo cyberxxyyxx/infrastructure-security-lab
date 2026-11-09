@@ -146,9 +146,7 @@ This workflow demonstrates how raw security events can be transformed into actio
 
 ## 6. Proof of Evidence
 
-Screenshots and supporting materials demonstrate the lab architecture, endpoint integration, authentication event generation, event collection, detection rule configuration, and SIEM alerts.
-
-See the `images/` directory for visual evidence.
+Detailed configuration steps, implementation screenshots, testing results, and technical evidence are documented in TECHNICAL_DOCUMENTATION.md.
 
 ## 7. Skills Demonstrated
 
