@@ -4,7 +4,7 @@
 
 ### Project Video
 
-[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=cfCilGGANMQ&t=188s).
+[Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=cfCilGGANMQ&t=188s)
 
 ---
 
@@ -14,17 +14,19 @@ The lab consists of three main systems operating in a segmented network environm
 
 | Hostname / Component | IP Address | Role | VLAN |
 |---|---|---|---|
-| KALI-01 | 10.10.30.100 | Security Testing / RDP Authentication Attempts | VLAN 30 |
-| WINDOWS-CLIENT | WINDOWS_ENDPOINT_IP | Windows Endpoint / RDP Target | To be confirmed |
+| KALI-01 | 10.10.30.100 | Network Reconnaissance / RDP Authentication Testing | VLAN 30 |
+| WINDOWS-CLIENT | 10.10.20.10 | Windows Endpoint / RDP Target | VLAN 20 |
 | SEC-01 | 10.10.50.10 | Elastic Security SIEM | VLAN 50 |
 
 The environment is hosted on Proxmox VE and uses OPNsense for network segmentation and traffic management.
 
 ## 2. Architecture
 
-The Windows endpoint acts as the target system and generates Windows Security Events during authentication attempts.
+The project starts with a known target IP address belonging to the Windows endpoint.
 
-Kali Linux is used to perform controlled RDP authentication tests against the Windows endpoint.
+Kali Linux is used to perform network reconnaissance against the target system using Nmap to identify exposed ports and running services.
+
+After discovering the Remote Desktop Protocol (RDP) service on TCP port `3389`, controlled RDP authentication attempts are performed against the Windows endpoint.
 
 Failed authentication attempts are recorded in the Windows Security Event Log, including Event ID `4625`.
 
@@ -32,20 +34,20 @@ Elastic Agent collects the relevant Windows Security Events and forwards them to
 
 Elastic Security is used to analyze authentication activity, configure detection rules, and generate SIEM alerts.
 
-![Siem RPD](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/00-diagram.png)
-
+![Elastic Security SIEM Architecture](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/00-diagram.png)
 
 ### Traffic Flow
 
-1. Kali Linux initiates RDP authentication attempts against the Windows endpoint.
-2. The Windows endpoint processes the authentication requests.
-3. Failed authentication attempts are recorded in the Windows Security Event Log.
-4. Windows generates Event ID `4625` for failed logon attempts.
-5. Elastic Agent collects the relevant security events.
-6. Collected events are forwarded to the Elastic Stack.
-7. Elasticsearch stores and indexes incoming security events.
-8. Kibana Discover is used to search and investigate authentication events.
-9. Elastic Security evaluates the configured detection rule and generates alerts when its conditions are met.
+1. The target Windows endpoint IP address is identified as the initial reconnaissance target.
+2. Kali Linux performs network reconnaissance using Nmap.
+3. Nmap identifies exposed services and discovers RDP running on TCP port `3389`.
+4. Kali Linux initiates controlled RDP authentication attempts against the Windows endpoint.
+5. Windows records failed authentication attempts in the Security Event Log.
+6. Windows generates Event ID `4625` for failed logon attempts.
+7. Elastic Agent collects the relevant Windows Security Events.
+8. Collected events are forwarded to the Elastic Stack.
+9. Elasticsearch stores and indexes incoming security events.
+10. Kibana Discover is used to investigate authentication events, while Elastic Security evaluates the configured detection rule and generates alerts when its conditions are met.
 
 ---
 
@@ -55,42 +57,67 @@ Elastic Security is used to analyze authentication activity, configure detection
 
 The demonstration was performed from the management laptop.
 
-Access Kali Linux through the management environment.
-
-Verify network connectivity between Kali Linux, the Windows endpoint, and the Elastic Security server.
+- Access Kali Linux through the management environment.
+- Identify the Windows endpoint IP address.
+- Verify network connectivity between Kali Linux, the Windows endpoint, and the Elastic Security server.
 
 Access Kali Linux:
 
 ```bash
-ssh admin@10.10.30.100
+ssh silviub@10.10.30.100
 ```
 
-Verify that the Windows endpoint is reachable and that Remote Desktop is enabled.
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/01-kali-login.png)
 
-### Step 2 – Windows Remote Desktop & Security Event Configuration
+The Windows endpoint used as the reconnaissance target:
 
-Prepare the Windows endpoint to accept RDP connections.
+```text
+10.10.20.10
+```
 
-Verify the following configurations:
+### Step 2 – Network Reconnaissance & Service Discovery
 
-- Remote Desktop is enabled.
-- The Windows Firewall allows the required RDP connections.
-- The Windows endpoint is connected to the lab network.
-- Windows Security auditing records failed logon events.
+After identifying the target IP address, Nmap was used from Kali Linux to discover exposed network services.
 
-Windows Security Event ID `4625` represents a failed logon attempt.
+Execute the following command:
 
-These events provide information about unsuccessful authentication attempts, including the account involved and available source network information.
+```bash
+sudo nmap -sV 10.10.20.10
+```
 
+The `-sV` option enables service version detection.
+
+The scan helps identify:
+
+- Open network ports.
+- Available services.
+- Service versions.
+- Potential remote access services.
+
+Pay particular attention to TCP port `3389`, commonly used by Remote Desktop Protocol (RDP).
+
+An open RDP port indicates that the service is reachable from the scanning host.
+
+The discovery of RDP provides the basis for the next testing stage.
+
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/02-kali-nmap-targe.png)
+
+- Nmap identified the target as a Windows Domain Controller belonging to the lab.local Active Directory domain.
+- The scan revealed several Active Directory services, including DNS (53), Kerberos (88), LDAP (389, 3268) and SMB (445).
+- RDP was also discovered running on TCP port 3389, confirming that the Remote Desktop service is exposed on the target system.
+  
 ### Step 3 – RDP Authentication Testing
 
-From KALI-01, initiate controlled RDP authentication attempts against the Windows endpoint.
+After identifying the RDP service, controlled authentication attempts were performed against the Windows endpoint.
 
-Use the Windows Remote Desktop client or another suitable RDP client.
+The testing focused on Remote Desktop authentication using the target IP address:
 
-Perform multiple failed login attempts using the username `admin` and different passwords.
+```text
+10.10.20.10
+```
 
-The objective is to generate Windows authentication failure events for subsequent SIEM analysis.
+Multiple failed login attempts were performed using the username `admin` and different passwords.
+The objective was to generate Windows authentication failure events that could subsequently be collected and investigated in Elastic Security.
 
 ### Step 4 – Windows Security Event Monitoring
 
@@ -108,9 +135,9 @@ Filter or search for Event ID:
 4625
 ```
 
-Review the generated failed logon events.
+Windows Security Event ID `4625` represents a failed logon attempt.
 
-Pay attention to:
+Review the generated events and investigate the following information:
 
 - Account Name
 - Source Network Address
@@ -118,7 +145,7 @@ Pay attention to:
 - Failure Information
 - Event Timestamp
 
-Verify that the events correspond to the authentication attempts performed from Kali Linux.
+Verify that the recorded events correspond to the authentication attempts performed from Kali Linux.
 
 ### Step 5 – Elastic Security Event Collection
 
@@ -134,8 +161,6 @@ The following KQL query can be used to filter failed Windows logon events:
 host.name : "WINDOWS-CLIENT" and event.code : "4625"
 ```
 
-Replace the hostname with the actual hostname configured in the lab.
-
 Investigate relevant fields, including:
 
 - `host.name`
@@ -146,9 +171,11 @@ Investigate relevant fields, including:
 - `winlog.event_data.LogonType`
 - `@timestamp`
 
+The analysis provides visibility into failed authentication attempts and helps correlate the generated events with the RDP testing activity.
+
 ### Step 6 – Elastic Security Detection Rule
 
-Configure a custom detection rule in Elastic Security to monitor failed Windows authentication events.
+A custom detection rule was configured in Elastic Security to monitor failed Windows authentication events.
 
 Navigate to:
 
@@ -162,13 +189,21 @@ Select:
 Create a rule → Custom Query
 ```
 
-Configure the KQL query:
+Configure the following KQL query:
 
 ```kql
 host.name : "WINDOWS-CLIENT" and event.code : "4625"
 ```
 
-Replace the hostname with the actual monitored Windows endpoint.
+Rule configuration:
+
+| Parameter | Configuration |
+|---|---|
+| Rule type | Custom Query |
+| Hostname | WINDOWS-CLIENT |
+| Event code | 4625 |
+| Query language | KQL |
+| Detection source | Windows Security Events |
 
 The rule monitors failed logon events generated by the selected Windows endpoint.
 
@@ -180,35 +215,47 @@ After saving the rule, perform additional controlled failed authentication attem
 
 ## 4. Security Monitoring & Investigation
 
-The investigation focuses on identifying and analyzing failed authentication activity recorded by the Windows endpoint.
+The investigation follows the complete workflow, from network reconnaissance to SIEM alert analysis.
 
-The monitoring process includes:
+The monitoring and investigation process includes:
 
+- Identifying the target system IP address.
+- Performing network reconnaissance using Nmap.
+- Discovering the exposed RDP service on TCP port `3389`.
+- Performing controlled RDP authentication attempts.
 - Identifying failed Windows logon events.
-- Investigating Event ID `4625`.
+- Investigating Windows Event ID `4625`.
 - Identifying the source IP address.
 - Reviewing targeted usernames.
 - Analyzing authentication timestamps.
 - Examining Windows logon types and failure information.
-- Monitoring repeated authentication failures.
 - Reviewing Elastic Security detection alerts.
 
-The Elastic Security interface provides centralized visibility into the collected authentication events and supports investigation through event details and alert information.
+Elastic Security provides centralized visibility into the collected authentication events and supports investigation through event details and alert information.
 
-The detection rule provides a practical example of how Windows Security Events can be used to identify and monitor failed authentication activity.
+This workflow demonstrates how network reconnaissance and endpoint authentication monitoring can be combined with SIEM-based detection and investigation.
 
 ---
 
 ## 5. Conclusion
 
-This project demonstrates how Elastic Security SIEM can be used to collect, monitor, and investigate Windows authentication events in a controlled cybersecurity lab environment.
+This project demonstrates a practical security monitoring workflow using Nmap, Windows Security Event Logs, and Elastic Security SIEM in a controlled homelab environment.
 
-Controlled RDP authentication attempts were used to generate failed logon events on the Windows endpoint.
+The process begins with a known Windows endpoint IP address. Nmap is used to perform network reconnaissance and identify the exposed Remote Desktop Protocol service on TCP port `3389`.
 
-Windows Security Event ID `4625` provided the relevant authentication failure information, while Elastic Agent collected and forwarded the events to the Elastic Stack.
+Following service discovery, controlled RDP authentication attempts are performed to generate failed logon events on the Windows endpoint.
 
-Kibana Discover enabled centralized event analysis, and a custom Elastic Security detection rule was configured to monitor failed authentication activity and generate SIEM alerts.
+Windows Security Event ID `4625` provides the authentication failure information, while Elastic Agent collects and forwards the events to the Elastic Stack.
 
-The project demonstrates a practical security monitoring workflow, from generating authentication events to collecting telemetry, configuring detection rules, and investigating security alerts.
+Kibana Discover enables centralized event analysis, and a custom Elastic Security detection rule monitors failed authentication activity and generates SIEM alerts when the configured conditions are met.
+
+The project demonstrates an end-to-end security monitoring workflow, covering:
+
+- Network reconnaissance and service discovery.
+- RDP authentication testing.
+- Windows security event collection.
+- SIEM event analysis.
+- Custom detection rule configuration.
+- Security alert generation and investigation.
 
 This documentation describes a practical SIEM monitoring and authentication detection lab implemented in a controlled homelab environment for educational and cybersecurity portfolio purposes.
