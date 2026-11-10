@@ -42,9 +42,9 @@ OPNsense is the central firewall and routing platform in the homelab, providing 
 ## 5. Configuration Screenshots
 
 ### Firewall Dashboard!
-![Firewall Dashboard](./firewall_dashboard.PNG)
+![Firewall Dashboard](./images/firewall_dashboard.PNG)
 ### Firewall Interfaces
-![Firewall Dashboard](./firewall_interfaces.PNG)
+![Firewall Dashboard](./images/firewall_interfaces.PNG)
 ### Firewall Rules
 
 ## 6. Technologies
