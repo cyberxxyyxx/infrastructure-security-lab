@@ -37,7 +37,7 @@ Nginx access logs are collected and forwarded to Elastic Security for centralize
 7. A custom Elastic Security query rule monitors Nginx access events.
 8. The collected HTTP activity is investigated using Kibana Discover.
 
-
+## 3. Implementation Steps
 ### Step 1 – Lab Environment Preparation
 
 - The demonstration was performed from the management laptop.
