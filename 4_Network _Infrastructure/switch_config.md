@@ -39,7 +39,7 @@ Configured VLANs:
 
 ### VLAN Configuration
 
-![network_infrastructure](./switch.PNG)
+![network_infrastructure](./images/switch.PNG)
 
 ### 802.1Q PVID Configuration
 
