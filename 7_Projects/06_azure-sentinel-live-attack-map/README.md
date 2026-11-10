@@ -5,6 +5,9 @@
 **Project Type:** Cybersecurity / Cloud Security / SIEM / Threat Detection
 
 ## Project Video
+<mark>**Click on the image below to watch the video demonstration.**</mark>
+
+👇
 
 [![Watch the project demonstration](https://img.youtube.com/vi/Y0DIDUPPOm4/maxresdefault.jpg)](https://www.youtube.com/watch?v=Y0DIDUPPOm4&t=179s)
 
