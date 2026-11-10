@@ -55,19 +55,12 @@ Elastic Security is used to analyze authentication activity, configure detection
 
 ### Step 1 – Lab Environment Preparation
 
-The demonstration was performed from the management laptop.
+The demonstration was performed from the management laptop via Proxmox.
 
-- Access Kali Linux through the management environment.
 - Identify the Windows endpoint IP address.
-- Verify network connectivity between Kali Linux, the Windows endpoint, and the Elastic Security server.
 
-Access Kali Linux:
 
-```bash
-ssh silviub@10.10.30.100
-```
-
-![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/01-kali-login.png)
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/01-DC-ipconfig.PNG)
 
 The Windows endpoint used as the reconnaissance target:
 
@@ -100,7 +93,7 @@ An open RDP port indicates that the service is reachable from the scanning host.
 
 The discovery of RDP provides the basis for the next testing stage.
 
-![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/02-kali-nmap-targe.png)
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/02-kali-access.PNG)
 
 - Nmap identified the target as a Windows Domain Controller belonging to the lab.local Active Directory domain.
 - The scan revealed several Active Directory services, including DNS (53), Kerberos (88), LDAP (389, 3268) and SMB (445).
@@ -108,16 +101,22 @@ The discovery of RDP provides the basis for the next testing stage.
   
 ### Step 3 – RDP Authentication Testing
 
-After identifying the RDP service, controlled authentication attempts were performed against the Windows endpoint.
+After identifying the RDP service, Remmina was used from Kali Linux to initiate Remote Desktop connections against the Windows endpoint.
 
-The testing focused on Remote Desktop authentication using the target IP address:
+The testing focused on Remote Desktop authentication using the following target:
 
 ```text
-10.10.20.10
+Target IP: 10.10.20.10
+Protocol: RDP
+Port: 3389
+Username: superuser
 ```
 
-Multiple failed login attempts were performed using the username `admin` and different passwords.
-The objective was to generate Windows authentication failure events that could subsequently be collected and investigated in Elastic Security.
+Multiple authentication attempts were performed using the username `superuser` and different passwords, resulting in failed login attempts.
+
+The objective was to generate Windows authentication failure events (Event ID `4625`) that could subsequently be collected and investigated in Elastic Security.
+
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/03-kali-RPD.PNG)
 
 ### Step 4 – Windows Security Event Monitoring
 
@@ -146,6 +145,8 @@ Review the generated events and investigate the following information:
 - Event Timestamp
 
 Verify that the recorded events correspond to the authentication attempts performed from Kali Linux.
+
+![Kali Linux Access](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/05_elastic-security-siem-rdp-failed-login-detection/images/04-event-viewer.PNG)
 
 ### Step 5 – Elastic Security Event Collection
 
