@@ -1,5 +1,5 @@
 # Cybersecurity Lab: OPNsense Firewall & Suricata IDS
-Network Scan Detection & Active Directory Monitoring
+## Network Scan Detection & Active Directory Monitoring
 
 **Project Type:** Cybersecurity / IDS / Network Security / Threat Detection
 
@@ -76,5 +76,7 @@ Detailed configuration steps, implementation screenshots, testing results and te
 - Active Directory Security Monitoring
 - VLAN Segmentation
 - Security Event Investigation
+
+---
 
 Educational cybersecurity project developed and tested in a controlled homelab environment.
