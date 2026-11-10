@@ -40,7 +40,6 @@ Filebeat or Elastic Agent collects Linux authentication logs and forwards them t
 ## 3. Implementation Steps
 
 ### Step 1 – Lab Environment Preparation
-.
 - The following demonstration was performed from the management laptop, connection to VM's via PowerShell.
 - Access the Ubuntu Linux Web Server via PowerShell terminal.
 - Access Kali Linux via PowerShell terminal.
