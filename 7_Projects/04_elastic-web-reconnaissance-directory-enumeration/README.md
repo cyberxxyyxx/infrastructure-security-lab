@@ -1,6 +1,5 @@
 # Cybersecurity Lab: Elastic Security – Web Reconnaissance & Directory Enumeration
-
-**Web Server Discovery, Directory Enumeration & Security Monitoring**
+## Web Server Discovery, Directory Enumeration & Security Monitoring
 
 **Project Type:** Cybersecurity / SIEM / Web Security / Threat Detection
 
