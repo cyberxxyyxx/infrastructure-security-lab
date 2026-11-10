@@ -1,10 +1,9 @@
 # Cybersecurity Lab: Elastic Security SIEM
-
 ## Security Event Monitoring, Failed Login Detection & SIEM Alerts
 
 **Project Type:** Cybersecurity / SIEM / Security Monitoring / Threat Detection
 
-**Project Video:** [Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=cfCilGGANMQ&t=188s)
+## Project Video: [Watch the project demonstration on YouTube](https://www.youtube.com/watch?v=cfCilGGANMQ&t=188s)
 
 ---
 
