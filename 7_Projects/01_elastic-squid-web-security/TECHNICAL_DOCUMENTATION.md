@@ -72,7 +72,7 @@ sudo systemctl reload squid
 ```
 ![Apply Squid ACL Rules](https://raw.githubusercontent.com/cyberxxyyxx/infrastructure-security-lab/main/7_Projects/01_elastic-squid-web-security/images/05-apply-ruless.png)
 
-## 3. Testing & Validation
+### Step 3 – Testing & Validation
 
 - Before Applying ACL Rules - Test access to allowed websites. Access allowed websites through the proxy.
   
