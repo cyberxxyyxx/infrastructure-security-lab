@@ -1,6 +1,6 @@
 # Cybersecurity Lab: Elastic Security SIEM
+## SSH Brute-Force Detection & Response
 
-SSH Brute-Force Detection & Response
 
 **Project Type:** Cybersecurity / SIEM / Threat Detection / Incident Response
 
@@ -83,4 +83,5 @@ Detailed configuration steps, implementation screenshots, testing results and te
 - Log Collection and Monitoring
 - Firewall and Access Control
 
+---
 Educational cybersecurity project developed and tested in a controlled homelab environment.
