@@ -27,6 +27,12 @@ The segmentation separates infrastructure services, user endpoints, monitoring, 
 
 ## 2. Hardware and Physical Interfaces
 
+### Firewall dashboard
+
+![OPNsense firewall dashboard](./images/firewall_dashboard.PNG)
+
+*OPNsense dashboard showing the firewall environment and system overview.*
+
 | Component | Configuration |
 |---|---|
 | Firewall platform | OPNsense |
@@ -40,6 +46,11 @@ The segmentation separates infrastructure services, user endpoints, monitoring, 
 All VLAN devices shown in the current configuration use `em0` as their parent interface. The WAN is assigned to `re0`.
 
 ### Interface assignments
+
+![OPNsense interface assignments](./images/firewall_interfaces.PNG)
+
+*Physical and logical interface assignments configured on the OPNsense firewall.*
+
 
 | OPNsense assignment | Interface device | Description |
 |---|---|---|
@@ -59,6 +70,13 @@ All VLAN devices shown in the current configuration use `em0` as their parent in
 The OPT interfaces are renamed in OPNsense to their functional descriptions. The VLAN 10 device exists in the VLAN device list, but it is not shown as a separate interface assignment. The untagged LAN interface currently uses the `10.10.10.1/24` address.
 
 ## 3. VLAN Segmentation and IP Addressing
+
+### Physical switching infrastructure
+
+![Managed network switch](./images/switch.PNG)
+
+*Managed switch used as part of the homelab network infrastructure. VLAN trunk/access-port configuration should be validated against the switch's running configuration.*
+
 
 The following table reflects the VLAN devices, interface assignments and IPv4 addresses visible in the supplied OPNsense screenshots.
 
