@@ -47,7 +47,7 @@ All VLAN devices shown in the current configuration use `em0` as their parent in
 
 ### Interface assignments
 
-![OPNsense interface assignments](./images/firewall_interfaces.PNG)
+![OPNsense interface assignments](./images/2_Assignment.PNG)
 
 *Physical and logical interface assignments configured on the OPNsense firewall.*
 
@@ -71,11 +71,11 @@ The OPT interfaces are renamed in OPNsense to their functional descriptions. The
 
 ## 3. VLAN Segmentation and IP Addressing
 
-### Physical switching infrastructure
+### VLAN device configuration
 
-![Managed network switch](./images/switch.PNG)
+![OPNsense VLAN devices](./images/1_VLAN.PNG)
 
-*Managed switch used as part of the homelab network infrastructure. VLAN trunk/access-port configuration should be validated against the switch's running configuration.*
+*VLAN devices defined on the OPNsense LAN parent interface.*
 
 
 The following table reflects the VLAN devices, interface assignments and IPv4 addresses visible in the supplied OPNsense screenshots.
@@ -96,6 +96,60 @@ The following table reflects the VLAN devices, interface assignments and IPv4 ad
 
 **Addressing convention:** Each routed network uses a `/24` subnet, with the OPNsense interface configured as the `.1` default gateway.
 
+### VLAN interface configuration evidence
+
+The following screenshots document the individual network interface configurations. They are grouped here to keep the main addressing table readable while retaining the configuration evidence for each segment.
+
+![LAN interface](./images/3_1-LAN.PNG)
+
+*LAN — untagged management network.*
+
+![SERVERS VLAN interface](./images/3_2-SERVERS.PNG)
+
+*VLAN 20 — SERVERS.*
+
+![CLIENTS VLAN interface](./images/3_3-CLIENTS.PNG)
+
+*VLAN 30 — CLIENTS.*
+
+![MONITORING VLAN interface](./images/3_4-MONITORING.PNG)
+
+*VLAN 40 — MONITORING.*
+
+![SECURITY VLAN interface](./images/3_5-SECURITY.PNG)
+
+*VLAN 50 — SECURITY.*
+
+![APPLICATIONS VLAN interface](./images/3_6-APPLICATION.PNG)
+
+*VLAN 60 — APPLICATIONS.*
+
+![BASTION VLAN interface](./images/3_7-BASTION.PNG)
+
+*VLAN 70 — BASTION.*
+
+![DMZ VLAN interface](./images/3_9-DMZ.PNG)
+
+*VLAN 90 — DMZ.*
+
+![Malware network interface](./images/3_10-MALWARE.PNG)
+
+*VLAN 100 — MalwareNetwork.*
+
+![PROXY VLAN interface](./images/3_11-PROXY.PNG)
+
+*VLAN 110 — PROXY.*
+
+![GOAD VLAN interface](./images/3_12-GOAD.PNG)
+
+*VLAN 120 — GOAD.*
+
+### Physical switching infrastructure
+
+![Managed network switch](./images/switch.PNG)
+
+*Managed switch used as part of the homelab network infrastructure. VLAN trunk/access-port configuration should be validated against the switch's running configuration.*
+
 > **VLAN 10 note:** The screenshots show a VLAN 10 device on `em0`, but no separate VLAN 10 interface assignment. The active LAN interface is untagged and uses the same `10.10.10.0/24` subnet. Confirm the intended native/management VLAN design before treating VLAN 10 as a tagged, separately routed interface.
 
 > **VLAN 80:** VLAN 80 appeared in an earlier version of this document, but it is not present in the latest VLAN device and interface-assignment screenshots. It is therefore not listed as an active configured VLAN here.
@@ -105,6 +159,10 @@ The following table reflects the VLAN devices, interface assignments and IPv4 ad
 The screenshots show configuration for both Dnsmasq DHCP and Kea DHCPv4. Their actual runtime status and interface responsibilities should be verified before considering the DHCP design finalized.
 
 ### 4.1 Dnsmasq DHCP ranges
+
+![Dnsmasq DHCP ranges](./images/5_DHCP-ranges.PNG)
+
+*Configured DHCP address pools for the internal network interfaces.*
 
 The following address pools are visible in the Dnsmasq DHCP ranges page:
 
@@ -124,6 +182,14 @@ The following address pools are visible in the Dnsmasq DHCP ranges page:
 No Dnsmasq DHCP range for VLAN 100 (MalwareNetwork) is visible in the supplied ranges screenshot.
 
 ### 4.2 Kea DHCPv4 subnet definitions
+
+![Kea DHCPv4 configuration](./images/6_KEA_DHCP.PNG)
+
+*Configured Kea DHCPv4 service and subnet definitions.*
+
+![DHCP subnet configuration](./images/7_SUBNETS.PNG)
+
+*DHCP subnet and address-pool configuration evidence.*
 
 Kea DHCPv4 is configured with the following subnet definitions and address pools:
 
@@ -158,6 +224,10 @@ Kea DHCPv4 is configured with the following subnet definitions and address pools
 **Important validation:** Both Dnsmasq and Kea have DHCP-related configuration in the screenshots. Verify which service is actually running and serving each interface. Do not run two DHCP servers for the same broadcast domain unless the arrangement is deliberately designed and coordinated. The Kea configuration also includes VLAN 10 while the current OPNsense LAN interface is untagged; confirm the intended interface/subnet mapping.
 
 ## 5. DNS Configuration
+
+![Dnsmasq DNS and DHCP configuration](./images/4_DNSMASQ.PNG)
+
+*Dnsmasq service configuration, including DNS/DHCP options.*
 
 Dnsmasq DNS & DHCP is configured with:
 
@@ -259,13 +329,13 @@ The following checks will be used to validate the network implementation:
 
 ## 11. Configuration Evidence
 
-Existing screenshots are stored in the network infrastructure images directory:
+The screenshots embedded throughout this document are stored in [`4_Network _Infrastructure/images/`](./images/README.md). The overview images are also linked below:
 
 - [OPNsense firewall dashboard](./images/firewall_dashboard.PNG)
-- [OPNsense firewall interfaces](./images/firewall_interfaces.PNG)
+- [OPNsense interface overview](./images/firewall_interfaces.PNG)
 - [Managed network switch](./images/switch.PNG)
 
-Additional screenshots covering VLAN definitions, interface assignments, DHCP ranges, Kea subnet definitions and firewall rules can be added as the documentation is expanded.
+The current evidence set covers VLAN device definitions, interface assignments, individual VLAN interfaces, Dnsmasq, DHCP ranges, Kea DHCPv4 and subnet definitions. Firewall-rule and NAT screenshots can be added when those configurations are ready for documentation.
 
 ## 12. Technologies
 
